@@ -1,23 +1,41 @@
-import pyperclip as pc
-from bs4 import BeautifulSoup
-from urllib2 import urlopen
 
 
-#grabbing from codesters
-BASE_URL = "https://www.codesters.com/code/"
+import pyperclip as pc #copy/paste to clipboard
+import os #pathing
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait as wait #downloading and clicking
+import time #slow down time
+import re #search through strings
 
-def get_category_links(section_url):
-    # Put the stuff you see when using Inspect Element in a variable called html.
-    html = urlopen(section_url).read()    
-    # Parse the stuff.
-    soup = BeautifulSoup(html, "lxml")    
-    # The next two lines will change depending on what you're looking for. This 
-    # line is looking for <dl class="boccat">.  
-    boccat = soup.find("dl", "boccat")    
-    # This line organizes what is found in the above line into a list of 
-    # hrefs (i.e. links). 
-    category_links = [BASE_URL + dd.a["href"] for dd in boccat.findAll("dd")]
-    return category_links
+
+#relative file paths
+userprofile = os.environ['USERPROFILE']
+driverpath = os.path.join(userprofile, 'Documents', 'GitHub', 'ExtraCodingThings', 'chromedriver_win32', 'chromedriver.exe')
+
+
+url = "https://www.codesters.com/code/"
+
+
+def open_browser():
+    driver = webdriver.Chrome(driverpath)
+    driver.get(url)
+    driver.find_element_by_id('top-nav-login-button').click()
+    driver.get("https://www.codesters.com/login/clever/?next=/social-signup/")
+    clever_ref_url = driver.current_url
+    m = re.match('redirect_uri=(.*?)', "ref").group()
+    #re.match("(.*?):",string).group()
+    if m:
+        found = m.group(1)
+    print(m)
+    time.sleep(5)
+    driver.get("https://clever.com/oauth/authorize?state=vjqCqVqqEpUkC6QYauqVBdwfg4a607j0&redirect_uri=")
+    time.sleep(30)
+    #driver.find_element_by_id('bt_gerar_cpf').click()
+    #text_field = driver.find_element_by_id('texto_cpf')
+    #text = wait(driver, 10).until(lambda driver: not text_field.text == 'Gerando...' and text_field.text)
+    #return text
+
+print(open_browser())
 
 
 #logic in the code
