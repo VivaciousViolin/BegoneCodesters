@@ -47,7 +47,13 @@ three = 4
 
 #logic in the thing
 
-math =  3 % 2 + 4 ** 3
+math = 2 ** 3 // 4 + 3
 print(math)
 pc.copy(math)
 #text2 = pc.paste()
+
+
+x = 2
+y = 3
+z = x ** y
+print(z)
