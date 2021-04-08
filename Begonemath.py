@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait as wait #downloading and
 import time #slow down time
 import re #search through strings
 
-
+"""
 #relative file paths
 userprofile = os.environ['USERPROFILE']
 driverpath = os.path.join(userprofile, 'Documents', 'GitHub', 'ExtraCodingThings', 'chromedriver_win32', 'chromedriver.exe')
@@ -37,7 +37,7 @@ def open_browser():
 
 print(open_browser())
 
-
+"""
 #logic in the code
 one = 10
 two = 8
@@ -46,7 +46,7 @@ three = 4
 
 
 #logic in the thing
-#math = one / two - three
+
 math =  3 % 2 + 4 ** 3
 print(math)
 pc.copy(math)
